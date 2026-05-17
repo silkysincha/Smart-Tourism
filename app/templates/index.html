@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartToursim</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="logo">SmartToursim</div>
+        <span class="header-badge">AI-powered</span>
+    </header>
+
+    <main class="main">
+
+        <!-- ── HERO ── -->
+        <section class="hero" id="hero">
+            <p class="hero-label">Personalised travel recommendations</p>
+            <h1 class="hero-title">Find your next<br /><em>perfect destination</em></h1>
+            <p class="hero-desc">Answer 3 quick questions. Our model matches you with places that fit how you actually
+                travel.</p>
+            <button class="btn-primary" id="start-btn">Get started <span class="arrow">→</span></button>
+        </section>
+
+        <!-- ── WIZARD ── -->
+        <section class="wizard hidden" id="wizard">
+
+            <div class="wizard-nav">
+                <button class="btn-back hidden" id="prev-btn">← Back</button>
+                <div class="pips">
+                    <div class="pip active" id="pip-0"></div>
+                    <div class="pip" id="pip-1"></div>
+                    <div class="pip" id="pip-2"></div>
+                </div>
+                <span class="step-label" id="step-label">Step 1 of 3</span>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step active" id="step-0">
+                <h2 class="step-title">Where & when?</h2>
+                <p class="step-sub">Tell us about where you want to go.</p>
+
+                <div class="field">
+                    <label>Preferred continent</label>
+                    <div class="chips" data-field="Preferred_Continent">
+                        <button class="chip" data-value="Asia">Asia</button>
+                        <button class="chip" data-value="Europe">Europe</button>
+                        <button class="chip" data-value="Africa">Africa</button>
+                        <button class="chip" data-value="North America">Americas</button>
+                        <button class="chip" data-value="Australia/Oceania">Oceania</button>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Best season for you</label>
+                    <div class="chips" data-field="Preferred_Season">
+                        <button class="chip" data-value="Spring">Spring</button>
+                        <button class="chip" data-value="Summer">Summer</button>
+                        <button class="chip" data-value="Monsoon">Monsoon</button>
+                        <button class="chip" data-value="Winter">Winter</button>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Trip length — <span class="slider-val" id="dur-val">7 days</span></label>
+                    <input type="range" min="3" max="21" value="7" class="slider" id="dur-slider"
+                        data-field="Total_Travel_Duration_Days" />
+                </div>
+
+                <div class="field">
+                    <label>Travelling as</label>
+                    <div class="chips" data-field="Travel_Type">
+                        <button class="chip" data-value="Solo">Solo</button>
+                        <button class="chip" data-value="Couple">Couple</button>
+                        <button class="chip" data-value="Family">Family</button>
+                        <button class="chip" data-value="Friends/Group">Group</button>
+                    </div>
+                </div>
+
+                <button class="btn-primary btn-next" id="next-0">Continue →</button>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step" id="step-1">
+                <h2 class="step-title">What do you love?</h2>
+                <p class="step-sub">Pick all that excite you — activities and vibe.</p>
+
+                <div class="field">
+                    <label>Activities <span class="hint">(select multiple)</span></label>
+                    <div class="chips multi">
+                        <button class="chip" data-field="Activity_Beaches" data-value="0">Beaches</button>
+                        <button class="chip" data-field="Activity_Mountains" data-value="0">Mountains</button>
+                        <button class="chip" data-field="Activity_Trekking_Hiking" data-value="0">Trekking</button>
+                        <button class="chip" data-field="Activity_Wildlife_Nature" data-value="0">Wildlife</button>
+                        <button class="chip" data-field="Activity_Historical_Places" data-value="0">History</button>
+                        <button class="chip" data-field="Activity_Local_Food_Cuisine" data-value="0">Food</button>
+                        <button class="chip" data-field="Activity_Shopping" data-value="0">Shopping</button>
+                        <button class="chip" data-field="Activity_Nightlife" data-value="0">Nightlife</button>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Trip vibe</label>
+                    <div class="chips" data-field="Travel_Purpose">
+                        <button class="chip" data-value="Adventure">Adventure</button>
+                        <button class="chip" data-value="Relaxation">Relaxation</button>
+                        <button class="chip" data-value="Cultural Exploration">Cultural</button>
+                        <button class="chip" data-value="Honeymoon">Honeymoon</button>
+                        <button class="chip" data-value="Educational">Educational</button>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Weather preference</label>
+                    <div class="chips" data-field="Preferred_Temperature_Range">
+                        <button class="chip" data-value="Cold">Cold</button>
+                        <button class="chip" data-value="Moderate">Moderate</button>
+                        <button class="chip" data-value="Warm">Warm</button>
+                        <button class="chip" data-value="Hot">Hot</button>
+                    </div>
+                </div>
+
+                <button class="btn-primary btn-next" id="next-1">Continue →</button>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step" id="step-2">
+                <h2 class="step-title">Budget & comfort</h2>
+                <p class="step-sub">Last step — helps us narrow things down.</p>
+
+                <div class="field">
+                    <label>Budget range</label>
+                    <div class="chips" data-field="Budget_Range">
+                        <button class="chip" data-value="Low">Low</button>
+                        <button class="chip" data-value="Medium">Medium</button>
+                        <button class="chip" data-value="High">High</button>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Spending style</label>
+                    <div class="chips" data-field="Preferred_Spending_Style">
+                        <button class="chip" data-value="Budget">Budget</button>
+                        <button class="chip" data-value="Balanced">Balanced</button>
+                        <button class="chip" data-value="Luxury">Luxury</button>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Crowd tolerance</label>
+                    <div class="chips" data-field="Crowd_Tolerance">
+                        <button class="chip" data-value="Low">Prefer quiet</button>
+                        <button class="chip" data-value="Medium">Moderate</button>
+                        <button class="chip" data-value="High">Love crowds</button>
+                    </div>
+                </div>
+
+                <button class="btn-submit" id="submit-btn">
+                    <span id="submit-text">Find my destinations</span>
+                    <span class="spinner hidden" id="spinner"></span>
+                </button>
+            </div>
+
+        </section>
+
+        <!-- ── RESULTS ── -->
+        <section class="results hidden" id="results">
+            <div class="results-head">
+                <h2 class="results-title">Your top matches</h2>
+                <p class="results-sub">Ranked by how well they fit your preferences.</p>
+            </div>
+            <div class="cards" id="cards"></div>
+            <button class="btn-ghost" id="restart-btn">← Start over</button>
+        </section>
+
+    </main>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>
